@@ -31,6 +31,39 @@ class FactorScreeningTests(unittest.TestCase):
         self.assertIn("value", result["selected_ids"])
         self.assertNotIn("noise", result["selected_ids"])
 
+    def test_intelligent_synthesis_after_screening(self) -> None:
+        metas = [
+            FactorMeta("mom", "动量", "price"),
+            FactorMeta("value", "价值", "fundamental"),
+            FactorMeta("quality", "质量", "fundamental"),
+        ]
+        rank_ic_map = {
+            "mom": [0.04, 0.05, 0.03, 0.06, 0.04],
+            "value": [0.03, 0.035, 0.028, 0.04, 0.033],
+            "quality": [0.025, 0.03, 0.027, 0.032, 0.029],
+        }
+        coverage = {"mom": 0.95, "value": 0.92, "quality": 0.9}
+        turnover = {"mom": 0.3, "value": 0.2, "quality": 0.15}
+        # mom 与 quality 中等相关：可通过筛选，但合成时应受相关惩罚
+        corr = {
+            ("mom", "value"): 0.15,
+            ("mom", "quality"): 0.55,
+            ("value", "quality"): 0.2,
+        }
+        out = FactorScreeningPipeline().run_with_synthesis(
+            metas,
+            rank_ic_map,
+            coverage,
+            turnover,
+            corr_matrix=corr,
+            recipe_version="syn-test-v1",
+        )
+        self.assertTrue(out["synthesis"]["accepted"])
+        weights = out["synthesis"]["weights"]
+        self.assertAlmostEqual(sum(weights.values()), 1.0, places=6)
+        self.assertEqual(set(weights), {"mom", "value", "quality"})
+        # 相关惩罚下，mom 与 quality 合计权重应低于无惩罚时的极端集中
+        self.assertLessEqual(max(weights.values()), 0.5 + 1e-6)
 
 class StrategyGenerationTests(unittest.TestCase):
     def test_generates_constrained_positions(self) -> None:

@@ -23,7 +23,7 @@ def main() -> None:
         FactorMeta("ep", "盈利收益率", "fundamental"),
         FactorMeta("illiq", "非流动性", "microstructure", direction=-1),
     ]
-    screening = FactorScreeningPipeline().run(
+    screening = FactorScreeningPipeline().run_with_synthesis(
         factor_metas=metas,
         rank_ic_map={
             "mom_20": [0.03, 0.04, 0.035, 0.045, 0.038],
@@ -33,10 +33,15 @@ def main() -> None:
         coverage_map={"mom_20": 0.96, "ep": 0.9, "illiq": 0.85},
         turnover_map={"mom_20": 0.35, "ep": 0.15, "illiq": 0.25},
         corr_matrix={("mom_20", "ep"): 0.15, ("mom_20", "illiq"): 0.25, ("ep", "illiq"): 0.2},
+        recipe_version="demo-syn-v1",
     )
 
     selected = screening["selected_factors"]
-    factor_icir = {f["factor_id"]: f["icir"] for f in selected}
+    # 优先使用智能合成权重；若合成未通过则回退 ICIR
+    if screening["synthesis"].get("accepted"):
+        factor_icir = screening["synthesis"]["weights"]
+    else:
+        factor_icir = {f["factor_id"]: f["icir"] for f in selected}
 
     # 构造示意截面
     symbols = [f"S{i}" for i in range(1, 21)]
@@ -68,6 +73,8 @@ def main() -> None:
 
     payload = {
         "selected_factor_ids": screening["selected_ids"],
+        "synthesis_accepted": screening["synthesis"].get("accepted"),
+        "synthesis_weights": screening["synthesis"].get("weights"),
         "strategy_accepted": strategy["accepted"],
         "strategy_id": strategy["strategy_spec"]["strategy_id"],
         "n_positions": len(strategy["target_positions"]),
