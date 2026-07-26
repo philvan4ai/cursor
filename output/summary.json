@@ -1,0 +1,359 @@
+{
+  "calibration_targets": {
+    "2021_domestic_share": 0.1,
+    "2025_domestic_share": 0.41,
+    "2030_domestic_share": 0.75,
+    "2025_nvidia_share_idc": 0.55
+  },
+  "scenarios": {
+    "sell_soft": {
+      "label": "卖：持续特供（H20 逻辑）",
+      "description": "美方允许阉割版芯片对华销售，英伟达维持可观份额；中国大模型厂商算力瓶颈缓解，但国产替代激励偏弱。",
+      "params": {
+        "nvidia_base": 0.92,
+        "domestic_base": 0.5,
+        "domestic_rd_gain": 0.36,
+        "cuda_lockin": 0.28,
+        "domestic_network": 0.22,
+        "switch_cost": 0.18,
+        "supply_risk": 0.7,
+        "forced_migration": 0.42,
+        "subsidy": 0.07,
+        "congestion_scale": 1.25,
+        "frontier_residual": 0.55,
+        "rd_cost_high": 0.2,
+        "rd_cost_low": 0.05,
+        "demand_reward": 0.5,
+        "learning_spillover": 0.16,
+        "wall_corner_boost": 0.28,
+        "option_value": 0.22,
+        "euv_breakthrough": false,
+        "kappa0": 0.68,
+        "kappa_euv": 0.97,
+        "kappa_growth": 0.022,
+        "adopter_speed": 1.05,
+        "supplier_speed": 1.05,
+        "noise": 0.008
+      },
+      "snapshots": {
+        "2021": {
+          "year": 2021,
+          "domestic_share": 0.1,
+          "nvidia_share": 0.9,
+          "y": 0.24,
+          "sigma": 0.35,
+          "kappa": 0.68
+        },
+        "2025": {
+          "year": 2025,
+          "domestic_share": 0.13504315541408227,
+          "nvidia_share": 0.8649568445859177,
+          "y": 0.39151576924455106,
+          "sigma": 0.52,
+          "kappa": 0.768
+        },
+        "2030": {
+          "year": 2030,
+          "domestic_share": 0.3273697953029148,
+          "nvidia_share": 0.6726302046970851,
+          "y": 0.6956558632679342,
+          "sigma": 0.5,
+          "kappa": 0.878
+        }
+      }
+    },
+    "hard_ban": {
+      "label": "不卖：高强度围堵",
+      "description": "高端与特供一并收紧；供应风险与「墙角激励」同步上升，加速华为等国产栈的研发投入与客户迁移。",
+      "params": {
+        "nvidia_base": 0.92,
+        "domestic_base": 0.48,
+        "domestic_rd_gain": 0.36,
+        "cuda_lockin": 0.22,
+        "domestic_network": 0.22,
+        "switch_cost": 0.12,
+        "supply_risk": 0.7,
+        "forced_migration": 0.62,
+        "subsidy": 0.1,
+        "congestion_scale": 1.15,
+        "frontier_residual": 0.55,
+        "rd_cost_high": 0.2,
+        "rd_cost_low": 0.05,
+        "demand_reward": 0.5,
+        "learning_spillover": 0.16,
+        "wall_corner_boost": 0.52,
+        "option_value": 0.22,
+        "euv_breakthrough": false,
+        "kappa0": 0.68,
+        "kappa_euv": 0.97,
+        "kappa_growth": 0.022,
+        "adopter_speed": 1.2,
+        "supplier_speed": 1.05,
+        "noise": 0.008
+      },
+      "snapshots": {
+        "2021": {
+          "year": 2021,
+          "domestic_share": 0.1,
+          "nvidia_share": 0.9,
+          "y": 0.25,
+          "sigma": 0.32,
+          "kappa": 0.68
+        },
+        "2025": {
+          "year": 2025,
+          "domestic_share": 0.5405092783242895,
+          "nvidia_share": 0.4594907216757105,
+          "y": 0.7241900426548052,
+          "sigma": 0.95,
+          "kappa": 0.768
+        },
+        "2030": {
+          "year": 2030,
+          "domestic_share": 0.8241233183292053,
+          "nvidia_share": 0.17587668167079473,
+          "y": 0.9939102974308955,
+          "sigma": 0.97,
+          "kappa": 0.878
+        }
+      }
+    },
+    "wsj_dilemma": {
+      "label": "WSJ 两难路径（基准校准）",
+      "description": "先收紧高端，再释放「第4好」信号又反复；信任受损 + 昇腾性能跃迁，推动采用率贴近 10%→41%→75% 轨迹。",
+      "params": {
+        "nvidia_base": 0.92,
+        "domestic_base": 0.52,
+        "domestic_rd_gain": 0.38,
+        "cuda_lockin": 0.26,
+        "domestic_network": 0.22,
+        "switch_cost": 0.16,
+        "supply_risk": 0.7,
+        "forced_migration": 0.58,
+        "subsidy": 0.08,
+        "congestion_scale": 1.4,
+        "frontier_residual": 0.55,
+        "rd_cost_high": 0.2,
+        "rd_cost_low": 0.05,
+        "demand_reward": 0.5,
+        "learning_spillover": 0.16,
+        "wall_corner_boost": 0.42,
+        "option_value": 0.22,
+        "euv_breakthrough": false,
+        "kappa0": 0.7,
+        "kappa_euv": 0.97,
+        "kappa_growth": 0.02,
+        "adopter_speed": 1.25,
+        "supplier_speed": 1.0,
+        "noise": 0.008
+      },
+      "snapshots": {
+        "2021": {
+          "year": 2021,
+          "domestic_share": 0.1,
+          "nvidia_share": 0.9,
+          "y": 0.24,
+          "sigma": 0.3,
+          "kappa": 0.7
+        },
+        "2025": {
+          "year": 2025,
+          "domestic_share": 0.4229428134104406,
+          "nvidia_share": 0.5770571865895594,
+          "y": 0.5617021117400655,
+          "sigma": 0.91,
+          "kappa": 0.7799999999999999
+        },
+        "2030": {
+          "year": 2030,
+          "domestic_share": 0.7661156428715407,
+          "nvidia_share": 0.23388435712845934,
+          "y": 0.9802241922368031,
+          "sigma": 0.88,
+          "kappa": 0.8799999999999999
+        }
+      }
+    },
+    "ascend_shock": {
+      "label": "性能冲击：昇腾 950 / 平头哥跃迁",
+      "description": "在 WSJ 两难管制路径上，额外提高国产性能与降低迁移摩擦，刻画「打破无法取代英伟达」认知转折。",
+      "params": {
+        "nvidia_base": 0.92,
+        "domestic_base": 0.56,
+        "domestic_rd_gain": 0.4,
+        "cuda_lockin": 0.18,
+        "domestic_network": 0.22,
+        "switch_cost": 0.1,
+        "supply_risk": 0.7,
+        "forced_migration": 0.52,
+        "subsidy": 0.09,
+        "congestion_scale": 1.15,
+        "frontier_residual": 0.55,
+        "rd_cost_high": 0.2,
+        "rd_cost_low": 0.05,
+        "demand_reward": 0.5,
+        "learning_spillover": 0.16,
+        "wall_corner_boost": 0.45,
+        "option_value": 0.22,
+        "euv_breakthrough": false,
+        "kappa0": 0.68,
+        "kappa_euv": 0.97,
+        "kappa_growth": 0.022,
+        "adopter_speed": 1.25,
+        "supplier_speed": 1.05,
+        "noise": 0.008
+      },
+      "snapshots": {
+        "2021": {
+          "year": 2021,
+          "domestic_share": 0.1,
+          "nvidia_share": 0.9,
+          "y": 0.32,
+          "sigma": 0.3,
+          "kappa": 0.68
+        },
+        "2025": {
+          "year": 2025,
+          "domestic_share": 0.5305713311093072,
+          "nvidia_share": 0.4694286688906928,
+          "y": 0.7123283322392675,
+          "sigma": 0.91,
+          "kappa": 0.768
+        },
+        "2030": {
+          "year": 2030,
+          "domestic_share": 0.8302819852643524,
+          "nvidia_share": 0.16971801473564763,
+          "y": 0.9916431413187553,
+          "sigma": 0.93,
+          "kappa": 0.878
+        }
+      }
+    },
+    "euv_breakthrough": {
+      "label": "反事实：EUV 突破（秦始皇摸电门）",
+      "description": "假设先进光刻瓶颈解除，产能/良率天花板大幅抬升；演化稳定策略突破 DUV 约束，趋向更高国产化。",
+      "params": {
+        "nvidia_base": 0.92,
+        "domestic_base": 0.55,
+        "domestic_rd_gain": 0.4,
+        "cuda_lockin": 0.3,
+        "domestic_network": 0.22,
+        "switch_cost": 0.1,
+        "supply_risk": 0.7,
+        "forced_migration": 0.5,
+        "subsidy": 0.08,
+        "congestion_scale": 0.45,
+        "frontier_residual": 0.12,
+        "rd_cost_high": 0.2,
+        "rd_cost_low": 0.05,
+        "demand_reward": 0.5,
+        "learning_spillover": 0.16,
+        "wall_corner_boost": 0.42,
+        "option_value": 0.22,
+        "euv_breakthrough": true,
+        "kappa0": 0.68,
+        "kappa_euv": 0.97,
+        "kappa_growth": 0.022,
+        "adopter_speed": 1.2,
+        "supplier_speed": 1.05,
+        "noise": 0.008
+      },
+      "snapshots": {
+        "2021": {
+          "year": 2021,
+          "domestic_share": 0.1,
+          "nvidia_share": 0.9,
+          "y": 0.28,
+          "sigma": 0.3,
+          "kappa": 0.82
+        },
+        "2025": {
+          "year": 2025,
+          "domestic_share": 0.5168875656320353,
+          "nvidia_share": 0.4831124343679647,
+          "y": 0.6373184061470907,
+          "sigma": 0.91,
+          "kappa": 0.97
+        },
+        "2030": {
+          "year": 2030,
+          "domestic_share": 0.987254017178892,
+          "nvidia_share": 0.012745982821107948,
+          "y": 0.9914841842817358,
+          "sigma": 0.93,
+          "kappa": 0.97
+        }
+      }
+    },
+    "no_control": {
+      "label": "反事实：无出口管制",
+      "description": "σ 维持低位，CUDA 网络效应主导，国产替代缓慢爬升。",
+      "params": {
+        "nvidia_base": 0.92,
+        "domestic_base": 0.48,
+        "domestic_rd_gain": 0.36,
+        "cuda_lockin": 0.36,
+        "domestic_network": 0.22,
+        "switch_cost": 0.24,
+        "supply_risk": 0.7,
+        "forced_migration": 0.12,
+        "subsidy": 0.04,
+        "congestion_scale": 1.35,
+        "frontier_residual": 0.55,
+        "rd_cost_high": 0.2,
+        "rd_cost_low": 0.05,
+        "demand_reward": 0.5,
+        "learning_spillover": 0.16,
+        "wall_corner_boost": 0.08,
+        "option_value": 0.22,
+        "euv_breakthrough": false,
+        "kappa0": 0.68,
+        "kappa_euv": 0.97,
+        "kappa_growth": 0.022,
+        "adopter_speed": 0.8,
+        "supplier_speed": 1.05,
+        "noise": 0.008
+      },
+      "snapshots": {
+        "2021": {
+          "year": 2021,
+          "domestic_share": 0.1,
+          "nvidia_share": 0.9,
+          "y": 0.2,
+          "sigma": 0.18,
+          "kappa": 0.68
+        },
+        "2025": {
+          "year": 2025,
+          "domestic_share": 0.018148804121843255,
+          "nvidia_share": 0.9818511958781567,
+          "y": 0.15820342779289054,
+          "sigma": 0.18,
+          "kappa": 0.768
+        },
+        "2030": {
+          "year": 2030,
+          "domestic_share": 0.007605942267814904,
+          "nvidia_share": 0.9923940577321851,
+          "y": 0.11448661362516908,
+          "sigma": 0.18,
+          "kappa": 0.878
+        }
+      }
+    }
+  },
+  "wsj_dilemma_fit": {
+    "domestic_2025": 0.4229428134104406,
+    "domestic_2030": 0.7661156428715407,
+    "abs_err_2025_vs_41pct": 0.012942813410440623,
+    "abs_err_2030_vs_75pct": 0.01611564287154066
+  },
+  "figures": {
+    "trajectories": "figures/trajectories.png",
+    "phase": "figures/phase_portrait.png",
+    "dilemma": "figures/dilemma.png",
+    "euv": "figures/euv_ceiling.png",
+    "calibration": "figures/calibration.png"
+  }
+}
