@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check that the two-session teaching plan contains all required fields."""
+"""Check that the two-session teaching plan is ML-focused and complete."""
 
 from pathlib import Path
 import sys
@@ -22,39 +22,56 @@ required = [
     "必读书目",
     "参考文献目录",
     "思考讨论题",
-    "苗东升",
-    "中国人民大学出版社",
-    "2010年3月",
-    "方美琪",
-    "汪小帆",
-    "高等教育出版社",
-    "2012年4月",
-    "钟永光",
-    "科学出版社",
-    "2025年4月",
-    "Melanie Mitchell",
-    "Oxford University Press",
-    "Barabási",
-    "Cambridge University Press",
-    "2016",
-    "钱学森",
-    "Nature Communications",
-    "Holland",
+    "机器学习",
+    "周志华",
+    "清华大学出版社",
+    "2016年1月",
+    "李航",
+    "统计学习方法",
+    "2019年5月",
+    "邱锡鹏",
+    "机械工业出版社",
+    "2020年4月",
+    "Goodfellow",
+    "Deep Learning",
+    "MIT Press",
+    "Sutton",
+    "Reinforcement Learning",
+    "2018",
+    "Hastie",
+    "深度学习",
+    "图神经网络",
+    "强化学习",
+]
+
+forbidden_as_main = [
+    "从还原论到复杂性",
+    "涌现、自组织与复杂适应系统",
 ]
 
 missing = [item for item in required if item not in text]
 session_markers = text.count("#### 课程思政教学内容设计")
+ml_count = text.count("机器学习")
 
 print(f"文档: {DOC}")
 print(f"字数: {len(text)}")
+print(f"“机器学习”出现次数: {ml_count}")
+
+errors = []
 if missing:
-    print("缺失条目:")
-    for item in missing:
+    errors.append("缺失条目: " + ", ".join(missing))
+if session_markers < 2:
+    errors.append(f"思政栏目次数不足: {session_markers}")
+if ml_count < 8:
+    errors.append("机器学习主线不够突出")
+for phrase in forbidden_as_main:
+    if phrase in text:
+        errors.append(f"仍保留旧主题标题: {phrase}")
+
+if errors:
+    print("校验失败:")
+    for item in errors:
         print(f"  - {item}")
     sys.exit(1)
 
-if session_markers < 2:
-    print(f"思政栏目次数不足: {session_markers}")
-    sys.exit(1)
-
-print("校验通过：两次课所需栏目与核心教材信息均已填写。")
+print("校验通过：两次课以机器学习为主线，所需栏目与教材信息均已填写。")
